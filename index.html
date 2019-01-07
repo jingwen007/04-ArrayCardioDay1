@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <div class="filter"></div>
+  <div class="map"></div>
+  <script>
+
+
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+
+    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+
+    
+    // Array.prototype.filter()
+    // 1. Filter the list of inventors for those who were born in the 1500's
+    //判斷從1500年~1599年之間的
+
+
+    var txtfilter = document.querySelector('.filter');
+    var strfilter = "";
+    let newInv = inventors.filter(function(inv){
+      return inv.year >= 1500 && inv.year < 1600;
+   });
+   console.log("第一題：判斷從1500年~1599年之間出生的人");
+   console.log(newInv);//後來產生的
+   for(var i =0;i<newInv.length;i++){
+    strfilter += '<li>'+newInv[i].first+'-'+newInv[i].year+'</li>';
+    console.log(newInv[i].first);
+  }
+  txtfilter.innerHTML = "第一題：判斷從1500年~1599年之間出生的人"+'<ul>'+strfilter+'</ul>';
+   console.log(inventors);//原本的
+
+    // Array.prototype.map()
+    // 2. Give us an array of the inventors' first and last names
+   //把first及last的姓與名結合在一起產生一個新陣列
+   //map可以針對某個東西去產生出新的陣列，會把回傳值塞到這個陣列裡
+   var txtmap = document.querySelector('.map');
+   var strmap = "";
+   let fullNameAry = inventors.map(function(name){
+
+    //return true;
+    return name.first + " " + name.last; 
+   });
+   console.log("第二題：把first及last的姓與名結合在一起產生一個新陣列");
+   console.log(fullNameAry);
+
+   for(i=0;i<fullNameAry.length;i++){
+    strmap += "<li>"+fullNameAry[i]+"</li>";
+    
+   }
+
+   txtmap.innerHTML="第二題：把first及last的姓與名結合在一起產生一個新陣列"+'<ul>'+strmap+'</ul>';
+
+    // Array.prototype.sort()
+    // 3. Sort the inventors by birthdate, oldest to youngest
+
+     let order = inventors.sort(function(a,b) {
+        return a.year - b.year;
+     }); 
+     console.log("第三題：利用sort，由最老的排到最年輕的");
+     console.log(order);
+
+    // Array.prototype.reduce()
+    // 4. How many years did all the inventors live?
+     //所有人加起來，總共活多久？
+
+     let total = 0;
+     let totalYear = inventors.reduce(function(total,inv){
+      return total + inv.passed - inv.year;
+      //return inv.passed;
+     },0);
+     console.log("第四題：所有人加起來，總共活多久？");
+     console.log(totalYear);
+
+    // 5. Sort the inventors by years lived
+    //照他活著年齡排序
+    console.log("第五題：照活著年齡排序");
+     order = inventors.sort(function(a,b){
+      return a.passed - a.year - (b.pass - b.year); 
+     });
+
+    //console.log(order);
+    console.table(order);
+    
+    // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+     //由上面的網頁，找出de開頭的
+     //不做了
+
+    // 7. sort Exercise
+    // Sort the people alphabetically by last name
+    //將people陣列按照字母順序來排序
+
+     let sortPeople = people.sort(function(a,b){
+       let aAry = a.split(", ");
+       let bAry = b.split(", ");
+
+       return aAry[1] > bAry[1] ? 1 : -1;
+     })
+     console.log("第七題：將people陣列按照字母順序來排序");
+     console.table(sortPeople);
+
+    // 8. Reduce Exercise
+    // Sum up the instances of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+     let arr = {};
+
+     data.forEach(function(element) {
+       if(!arr[element]){
+         arr[element] = 1;
+       }else{
+         arr[element] ++;
+       }
+      
+     })
+     console.log("第八題：將data陣列的每一個相同的做加總");
+     console.log(arr);
+     //含鍵值的陣列
+     console.log(arr['car']);
+
+     let arr1 = {};
+     let reduceObj = data.reduce(function(obj, element){
+      if(!arr1[element]){
+         arr1[element] = 1;
+       }else{
+         arr1[element] ++;
+       }
+      return arr1;
+     }, {});
+
+     console.log(arr1);
+  </script>
+</body>
+</html>
